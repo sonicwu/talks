@@ -230,7 +230,7 @@ function getCacheNode(key) {
         <ul>
           <li>CouchDB 每个节点均可写入，并记录每次写入的版本号 (Rev)，每次更新需提交上一次的版本号，以验证是否过期</li>
           <li>当网络分区导致两个节点数据冲突时，会自行选择一个版本生效，另一个版本标记为“冲突”，可以由程序按自己的规则解决</li>
-          <li>因此 CouchDB 属于 CA，保证了<a href="http://guide.couchdb.org/draft/consistency.html">最终一致性</a>。类似的 Riak 采用了<a href="http://riak.com.cn/riak/1.4.2/theory/concepts/Vector-Clocks/">向量时钟</a></li>
+          <li>因此 CouchDB 属于 CA，只保证<a href="http://guide.couchdb.org/draft/consistency.html">最终一致性</a>。同属 CA 阵营的 Dynamo 和 Riak 采用了<a href="http://riak.com.cn/riak/1.4.2/theory/concepts/Vector-Clocks/">向量时钟</a></li>
         </ul>
       </section>
       <section>
@@ -241,12 +241,16 @@ function getCacheNode(key) {
           <li class="fragment">某天我嘴里叼着半拉馍，被矿长媳妇拦住了：“听说你懂推车？现在好孩子&trade;最好的推车是什么？好用我就放你走”</li>
         </ul>
       </section>
-      <section>
-        <h3>最终一致性的故事</h3>
-        <p style="text-align: left">我该怎么回答？</p>
+      <section style="text-align: left">
+        <p>Happy Ending <span class="fragment" style="color: greenyellow;">(保持可用, 最终一致性)</span></p>
         <ul class="fragment">
-          <li>可用性：“蜂鸟，妥妥的” (我所知道的，3 年前的新款)</li>
-          <li>一致性：“我不知道。放我回去给你半价弄个最新的”</li>
+          <li>我：“蜂鸟，妥妥的” (我所知道的，3 年前的新款)</li>
+          <li>老板娘也接受了这款并放走了我，回到公司后我了解到现在最新的是口袋车，从此过上了幸福的生活</li>
+        </ul>
+        <p>Bad Ending <span class="fragment" style="color: greenyellow;">(保持强一致性)</span></p>
+        <ul class="fragment">
+          <li>我：“我不知道了”</li>
+          <li>......</li>
         </ul>
       </section>
       <section>
@@ -267,9 +271,44 @@ function getCacheNode(key) {
       </section>
       <section>
         <h3>Paxos</h3>
+        <br/>
+        <ul>
+          <li>作者是 Leslie Lamport，即 LaTeX 的 "La"</li>
+          <li>最初在 1990 年提出，因难以理解而没有引起重视，他就把这个故事一直讲到了 2006 年</li>
+        </ul>
+        <div class="fragment">
+          <p style="text-align: left">Paxos 是一个希腊岛屿，岛民采取民主制决定律法，但不要求每次大会所有人都出席</p>
+          <span>
+            <img src="img/paxos_map.jpg">
+            <img src="img/paxos_beach.jpg">
+          </span>
+        </div>
+      </section>
+      <section>
+        <h4>正常情况下的 Paxos 就像 2PC</h4>
+        <img src="img/paxos_normal.png">
+      </section>
+      <section>
+        <h4>网络分区情况下的 Paxos</h4>
+        <img src="img/paxos_quorum.png">
+        <p>此时张三将决定哪一边形成“法定人数” (Quorum)</p>
+      </section>
+      <section>
+        <h4>打工归来的赵六</h4>
+        <img src="img/paxos_old_proposal.png">
+        <ul>
+          <li>赵六离开家时，门票还是￥10，见过大世面的他觉得应该涨到￥50</li>
+          <li>岛民们告诉赵六现在已经涨到￥20了，你回去想想再说</li>
+        </ul>
+      </section>
+      <section>
+        <h4>总结</h4>
+        <img src="img/transactions_across_datacenters_googleio_2009.jpg">
+        <p>Google I/O 2009 <a href="http://snarfed.org/transactions_across_datacenters_io.html">《Transaction Across DataCenter》</a></p>
+        <p>by Ryan Barrett</p>
       </section>
       <section style="text-align: left">
-        <p>关于 2PC / Paxos 你还需要知道的</p>
+        <p>关于 2PC / Paxos 你可能还需要知道的</p>
         <ul>
           <li><a href="http://en.wikipedia.org/wiki/Two_Generals'_Problem">两将军问题</a></li>
           <li><a href="http://zh.wikipedia.org/wiki/%E6%8B%9C%E5%8D%A0%E5%BA%AD%E5%B0%86%E5%86%9B%E9%97%AE%E9%A2%98">拜占庭将军问题</a></li>
