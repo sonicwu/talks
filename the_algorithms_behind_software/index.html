@@ -36,7 +36,7 @@
         <h4>哈希 / 布隆过滤器 / 一致性哈希 / CAP定理和最终一致性 / Paxos</h4>
       </section>
       <section>
-        <h3>我们将聊些哪些内容？</h3>
+        <h3>我们将聊哪些内容？</h3>
         <br/>
         <ul>
           <li>哈希函数 (Hash Function)</li>
@@ -239,7 +239,7 @@ function getCacheNode(key) {
         <ul>
           <li>CouchDB 每个节点均可写入，并记录每次写入的版本号 (Rev)，每次更新需提交上一次的版本号，以验证是否过期</li>
           <li>当网络分区导致两个节点数据冲突时，会自行选择一个版本生效，另一个版本标记为“冲突”，可以由程序按自己的规则解决</li>
-          <li>因此 CouchDB 属于 AP，只保证<a href="http://guide.couchdb.org/draft/consistency.html">最终一致性</a>。同属 AP 阵营的 Dynamo 和 Riak 采用了<a href="http://riak.com.cn/riak/1.4.2/theory/concepts/Vector-Clocks/">向量时钟</a></li>
+          <li>因此 CouchDB 属于 AP，会保证<a href="http://guide.couchdb.org/draft/consistency.html">最终一致性</a>。同属 AP 阵营的 Dynamo 和 Riak 采用了<a href="http://riak.com.cn/riak/1.4.2/theory/concepts/Vector-Clocks/">向量时钟</a></li>
         </ul>
       </section>
       <section>
