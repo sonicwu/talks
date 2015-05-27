@@ -1,19 +1,495 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-    <title>Maven 介绍 | Intro to Maven</title>
+  <meta charset="utf-8">
+  <title>使用 Maven 做项目构建 | Introduction To Maven</title>
+  <meta name="description" content="Introduction To Maven">
+  <meta name="author" content="Sonic Wu">
+
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/league.css" id="theme">
+
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <style type="text/css">
+    p {
+      text-align: left;
+    }
+  </style>
+
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
 </head>
 <body>
-    <h1>Intro to Maven</h1>
-    
-    <script>
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+<div class="reveal">
+  <div class="slides">
+    <section>
+      <h1>Maven</h1>
+      <h4>基于项目对象模型(POM)的项目管理和构建自动化工具</h4>
+    </section>
+    <section>
+      <h3>Maven 基础概念</h3>
+      <ul>
+        <li>Lifecycle</li>
+        <li>Phase</li>
+        <li>Plugin / Goal</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Lifecycle</h3>
+      <ul>
+        <li>生命周期，是对项目构建过程的抽象和统一</li>
+        <li>Maven 拥有三套相对独立的生命周期</li>
+      </ul>
+      <br/>
+      <br/>
+      <table>
+        <thead>
+        <tr>
+          <th>Lifecycle</th>
+          <th>含义</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>clean</td>
+          <td>清理项目</td>
+        <tr>
+        <tr>
+          <td>default</td>
+          <td>构建项目</td>
+        <tr>
+        <tr>
+          <td>site</td>
+          <td>发布项目站点</td>
+        <tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h3>Phase</h3>
+      <p style="text-align: left">每个生命周期都由多个"阶段"（Phase）组成</p>
+      <div style="text-align: left;">
+        <ul>
+          <li>clean 生命周期</li>
+          <ul>
+            <li>pre-clean</li>
+            <li>clean</li>
+            <li>post-clean</li>
+          </ul>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3>Phase</h3>
+      <div style="text-align: left;">
+        <ul>
+          <li>default 生命周期</li>
+          <ul>
+            <li>validate</li>
+            <li>initialize</li>
+            <li>...</li>
+            <li>compile</li>
+            <li>...</li>
+            <li>package</li>
+            <li>install</li>
+            <li>deploy</li>
+          </ul>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3>Phase</h3>
+      <div style="text-align: left;">
+        <ul>
+          <li>site 生命周期</li>
+          <ul>
+            <li>pre-site</li>
+            <li>site</li>
+            <li>post-site</li>
+            <li>site-deploy</li>
+          </ul>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h3>Phase</h3>
+      <p style="text-align: left;">每个“阶段"与它生命周期前后的"阶段"有依赖关系，执行一个"阶段"会自动执行在它之前的所有"阶段"</p>
+      <ol>
+        <li>执行 "mvn clean"，实际执行的阶段为: pre-clean -> clean</li>
+        <li>执行 "mvn compile"，实际执行的阶段为: validate -> initialize -> generate-sources -> ... -> compile</li>
+        <li>执行 "mvn clean install"，实际执行的阶段为: pre-clean -> clean -> validate -> initialize -> ... -> install</li>
+      </ol>
+    </section>
+    <section>
+      <h3>Plugin / Goal</h3>
+      <ul>
+        <li>"生命周期"和"阶段"都是 Maven 对构建过程的抽象，实际任务都是交由"插件"（Plugin）完成的</li>
+        <li>一个"插件"往往提供了多个功能，每一个功能就叫做"目标"（Goal）。正如"插件"的概念，使得每个"生命周期中阶段"的行为都可以很容易的修改和替换</li>
+        <li>我们可以在 pom 文件中引入第三方插件来代理一个具体的"阶段"</li>
+      </ul>
+    </section>
+    <section>
+      <h3>Plugin / Goal</h3>
+      <p style="text-align: left;">即使不引入任何第三方插件，Maven 也内置了一套"阶段"对应"插件"的关系</p>
+      <table>
+        <thead>
+        <tr>
+          <th>Lifecycle</th>
+          <th>Phase</th>
+          <th>></th>
+          <th>Plugin</th>
+          <th>Goal</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>clean</td>
+          <td>clean</td>
+          <td></td>
+          <td>maven-clean-plugin</td>
+          <td>clean</td>
+        <tr>
+        <tr>
+          <td>default</td>
+          <td>compile</td>
+          <td></td>
+          <td>maven-compiler-plugin</td>
+          <td>compile</td>
+        <tr>
+        <tr>
+          <td>default</td>
+          <td>package</td>
+          <td></td>
+          <td>maven-jar-plugin</td>
+          <td>jar</td>
+        <tr>
+        <tr>
+          <td>default</td>
+          <td>deploy</td>
+          <td></td>
+          <td>maven-deploy-plugin</td>
+          <td>deploy</td>
+        <tr>
+        <tr>
+          <td>site</td>
+          <td>site</td>
+          <td></td>
+          <td>maven-site-plugin</td>
+          <td>site</td>
+        <tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h3>Maven 命令行</h3>
+      <p>Maven Usage</p>
+      <pre><code data-trim>
+usage: mvn [options] [goal(s)] [phase(s)]
+      </code></pre>
+      <p>调用插件的一个具体目标</p>
+      <pre><code data-trim>
+mvn maven-install-plugin:install
+      </code></pre>
+    </section>
+    <section>
+      <h3>思考</h3>
+      <p>在不引入第三方插件的情况下，为何这两条命令是等价的？</p>
+      <pre><code data-trim>
+# phase
+mvn clean
 
-        ga('create', 'UA-61870469-1', 'auto');
-        ga('send', 'pageview');
-    </script>
+# plugin:goal
+mvn maven-clean-plugin:clean
+      </code></pre>
+    </section>
+    <section>
+      <h3>依赖管理</h3>
+      <p>项目依赖的 jar 在 maven 中通过配置的方式自动引入，只需将依赖声明在 pom 文件中即可</p>
+      <pre><code class="xml" data-trim>
+<dependency>
+  <groupId>com.zaxxer</groupId>
+  <artifactId>HikariCP</artifactId>
+  <version>2.3.2</version>
+</dependency>
+      </code></pre>
+    </section>
+    <section>
+      <h3>依赖传递</h3>
+      <p>什么是依赖传递？</p>
+      <ul>
+        <li>假设项目依赖 "log4j 2.0"，又依赖 "libA"，而 "libA" 依赖 "log4j 1.2"</li>
+        <li>这样 "libA" 依赖的 "log4j 1.2" 也会被传递给项目</li>
+        <li>最终导致项目同时依赖 "log4j 2.0" 和 "log4j 1.2"</li>
+      </ul>
+    </section>
+    <section>
+      <h3>如何限制依赖传递</h3>
+      <p>Dependency Scope</p>
+      <pre><code class="xml" data-trim>
+<dependency>
+  <groupId>junit</groupId>
+  <artifactId>junit</artifactId>
+  <version>4.6</version>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>javax.servlet</groupId>
+  <artifactId>servlet-api</artifactId>
+  <version>2.5</version>
+  <scope>provided</scope>
+</dependency>
+      </code></pre>
+    </section>
+    <section>
+      <h3>如何限制依赖传递</h3>
+      <p>Dependency Scope</p>
+      <table>
+        <thead>
+        <tr>
+          <th>Scope</th>
+          <th width="80px">传递</th>
+          <th>含义</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>compile</td>
+          <td>是</td>
+          <td>默认值，依赖在所有过程中有效</td>
+        <tr>
+        <tr>
+          <td>provided</td>
+          <td>X</td>
+          <td>此依赖已由容器提供（例如 servlet-api, jsp-api），仅在编译、测试阶段使用</td>
+        <tr>
+        <tr>
+          <td>runtime</td>
+          <td>是</td>
+          <td>此依赖仅在运行时使用，编译期不需要</td>
+        <tr>
+        <tr>
+          <td>test</td>
+          <td>X</td>
+          <td>此依赖仅在测试编译、测试运行阶段使用</td>
+        <tr>
+        <tr>
+          <td>system</td>
+          <td>X</td>
+          <td>类似 provided，但期望你指出依赖的明确位置，而不会去仓库查询</td>
+        <tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h3>如何限制依赖传递</h3>
+      <p>Exclusions</p>
+      <pre><code class="xml" data-trim>
+<dependency>
+  <groupId>org.apache.poi</groupId>
+  <artifactId>poi</artifactId>
+  <version>3.1-FINAL</version>
+  <exclusions>
+    <exclusion>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+      </code></pre>
+    </section>
+    <section>
+      <h3>Maven 仓库</h3>
+      <p>Maven 仓库分两大类，其中"远程仓库"又分三种：</p>
+      <div style="text-align: left;">
+        <ul>
+          <li>本地仓库</li>
+          <li>远程仓库</li>
+          <ul>
+            <li>自建仓库 (私服)</li>
+            <li>中央仓库</li>
+            <li>其他公共库</li>
+          </ul>
+        </ul>
+      </div>
+    </section>
+    <section>
+      <h4>Maven 仓库</h4>
+      <img src="img/maven_repos.png">
+    </section>
+    <section>
+      <h3>自建仓库 (私服)</h3>
+      <ol>
+        <li>在服务器安装 <a href="http://www.sonatype.org/nexus/">Sonatype Nexus</a>，并启动</li>
+        <li>在开发机修改 Maven 的 settings.xml 以添加 nexus 的地址</li>
+      </ol>
+      <pre><code class="xml" data-trim>
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  ...
+  <mirrors>
+    <mirror>
+      <id>local.mirror.repository</id>
+      <name>Local Nexus Repository</name>
+      <url>http://192.168.100.90:8081/nexus/content/groups/public/</url>
+      <mirrorOf>*</mirrorOf>
+    </mirror>
+  </mirrors>
+  ...
+</settings>
+      </code></pre>
+    </section>
+    <section>
+      <h3>如何将我开发的 Lib 部署到自建仓库</h3>
+      <ul>
+        <li>首先要用管理员登录 Nexus，设置 deployment 用户的密码</li>
+        <li>否则 deploy 将提示错误: 401, ReasonPhrase:Unauthorized</li>
+      </ul>
+      <img src="img/set_password.png">
+    </section>
+    <section>
+      <h3>如何将我开发的 Lib 部署到自建仓库</h3>
+      <p>修改项目的 pom.xml，增加 distributionManagement 部分</p>
+      <pre><code class="xml" data-trim>
+<project>
+  ...
+  <distributionManagement>
+    <repository>
+      <id>releases</id>
+      <name>Internal Releases</name>
+      <url>http://192.168.100.90:8081/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>snapshots</id>
+      <name>Internal Releases</name>
+      <url>http://192.168.100.90:8081/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  ...
+</project>
+      </code></pre>
+    </section>
+    <section>
+      <h3>如何将我开发的 Lib 部署到自建仓库</h3>
+      <p>修改 Maven 配置文件 settings.xml，增加 servers 部分</p>
+      <pre><code class="xml" data-trim>
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  ...
+  <servers>
+    <server>
+      <id>releases</id>
+      <username>deployment</username>
+      <password>fake_passwd</password><!-- 前面设置的 deployment 用户的密码 -->
+    </server>
+    <server>
+      <id>snapshots</id>
+      <username>deployment</username>
+      <password>fake_passwd</password><!-- 前面设置的 deployment 用户的密码 -->
+    </server>
+  </servers>
+  ...
+</settings>
+      </code></pre>
+    </section>
+    <section>
+      <h3>如何将我开发的 Lib 部署到自建仓库</h3>
+      <p>至此，执行 deploy 命令就将会把当前项目按照 pom 中的版本部署到自建仓库</p>
+      <pre><code data-trim>
+mvn clean deploy
+      </code></pre>
+    </section>
+    <section>
+      <h3>Maven 插件</h3>
+      <br/>
+      <table>
+        <thead>
+        <tr>
+          <th>IDE</th>
+          <th>可用插件</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Intellij IDEA</td>
+          <td>已内置</td>
+        <tr>
+        <tr>
+          <td>Eclipse</td>
+          <td><a href="http://eclipse.org/m2e/">m2e (m2eclipse)</a></td>
+        <tr>
+        <tr>
+          <td>MyEclipse</td>
+          <td>已内置</td>
+        <tr>
+        </tbody>
+      </table>
+    </section>
+    <section>
+      <h3>小技巧: 如何知道一个 Class 来自哪个 Lib</h3>
+      <br/>
+      <p>当碰到类找不到的错误，例如：</p>
+      <pre><code data-trim>
+java.lang.NoClassDefFoundError: com.foo.FooServiceImpl
+      </code></pre>
+      <p>可通过 <a href="http://grepcode.com/">GrepCode</a> 搜索 FooServiceImpl 来自哪个 Lib</p>
+    </section>
+    <section>
+      <h3>小技巧: 如何在中央仓库查找 Lib</h3>
+      <br/>
+      <ul>
+        <li><a href="http://mvnrepository.com/">http://mvnrepository.com/</a></li>
+        <li><a href="http://search.maven.org/#browse">http://search.maven.org/#browse</a></li>
+      </ul>
+    </section>
+    <section>
+      <h1>The End</h1>
+      <h4>讨论环节</h4>
+    </section>
+  </div>
+</div>
+
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.js"></script>
+<script>
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    transition: 'convex',
+
+    dependencies: [
+      { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+    ]
+  });
+
+</script>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-61870469-1', 'auto');
+  ga('send', 'pageview');
+</script>
 </body>
 </html>
