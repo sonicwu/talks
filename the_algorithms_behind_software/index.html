@@ -33,16 +33,18 @@
     <div class="slides">
       <section>
         <h1>软件背后的算法</h1>
-        <h4>哈希 / 布隆过滤器 / 一致性哈希 / CAP定理和最终一致性 / Paxos</h4>
+        <h4>令牌桶 / 哈希 / 布隆过滤器 / 一致性哈希 / CAP定理 / Paxos</h4>
       </section>
       <section>
         <h3>我们将聊哪些内容？</h3>
         <br/>
         <ul>
+          <li>令牌桶 (Token Bucket)</li>
           <li>哈希函数 (Hash Function)</li>
           <li>布隆过滤器 (Bloom Filter)</li>
           <li>一致性哈希 (Consistent Hashing)</li>
-          <li>CAP定理 (CAP Theorem)</li>
+          <li>CAP 定理 (CAP Theorem)</li>
+          <li>NWR 模型 (NWR Model)</li>
           <li>最终一致性 (Eventual Consistency)</li>
           <li>两阶段提交 (2 Phase Commit)</li>
           <li>Paxos</li>
@@ -72,8 +74,32 @@
         <br/>
         <p><a href="http://www.zhihu.com/question/20185425/answer/14258604">知乎用户：</a></p>
         <blockquote>
-          “算法培养的是思考问题解决问题的通性通法，而不是某一种具体的方法。”
+          “算法培养的是思考问题、解决问题的通性通法，而不是某一种具体的方法。”
         </blockquote>
+      </section>
+      <section>
+        <h3>算法有多难？</h3>
+        <div class="fragment">
+          <p>小学《数学》42 页课后题</p>
+          <blockquote>
+            “某游泳池，有一根进水管和一根排水管，单开进水管 15 分钟可灌满，单开排水管 10 分钟可排完。请问两个水管同时开多长时间可将水池灌满？”
+          </blockquote>
+        </div>
+      </section>
+      <section>
+        <h3>如何对 API 进行流量限制？</h3>
+        <br/>
+        <ul>
+          <li>以保证 QoS (Quality of Service)</li>
+          <li>假设 API 部署在 VPS 上，CPU 和流量都按量收费，那么更要避免信用卡被刷爆</li>
+        </ul>
+      </section>
+      <section>
+        <h3>令牌桶</h3>
+        <img src="img/token_bucket.png" width="702">
+      </section>
+      <section>
+        <img src="img/token_bucket_code.png" />
       </section>
       <section>
         <h3>哈希函数</h3>
@@ -241,6 +267,26 @@ function getCacheNode(key) {
           <li>当网络分区导致两个节点数据冲突时，会自行选择一个版本生效，另一个版本标记为“冲突”，可以由程序按自己的规则解决</li>
           <li>因此 CouchDB 属于 AP，会保证<a href="http://guide.couchdb.org/draft/consistency.html">最终一致性</a>。同属 AP 阵营的 Dynamo 和 Riak 采用了<a href="http://riak.com.cn/riak/1.4.2/theory/concepts/Vector-Clocks/">向量时钟</a></li>
         </ul>
+      </section>
+      <section>
+        <h3>NWR 模型: 在 CAP 之间抉择</h3>
+        <br/>
+        <table>
+          <tbody>
+          <tr>
+            <td>N</td>
+            <td>节点数</td>
+          <tr>
+          <tr>
+            <td>W</td>
+            <td>提交数据在多少个节点写入成功才算成功</td>
+          <tr>
+          <tr>
+            <td>R</td>
+            <td>读取数据在多少个节点读取一致才算成功</td>
+          <tr>
+          </tbody>
+        </table>
       </section>
       <section>
         <h3>最终一致性的故事</h3>
