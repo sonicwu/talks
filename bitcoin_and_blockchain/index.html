@@ -222,8 +222,163 @@
           <h2>区块链</h2>
         </section>
         <section>
+          <h3>区块与区块链</h3>
+          <br/>
+          <ul>
+            <li>区块是一种聚合了交易信息的容器数据结构</li>
+            <li>每个区块都会指向一个父区块，形成一个有序链表</li>
+            <li>区块链就是比特币世界中的公共账簿</li>
+          </ul>
+        </section>
+        <section>
+          <h3>区块结构</h3>
+          <br/>
+          <table style="font-size: 26px">
+            <thead>
+            <tr>
+              <th>Size</th>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>4 bytes</td>
+              <td>Block Size</td>
+              <td>The size of the block, in bytes, following this field</td>
+            </tr>
+            <tr>
+              <td>80 bytes</td>
+              <td>Block Header</td>
+              <td>Several fields form the block header</td>
+            </tr>
+            <tr>
+              <td>VarInt</td>
+              <td>Transaction Counter</td>
+              <td>How many transactions follow</td>
+            </tr>
+            <tr>
+              <td>Variable</td>
+              <td>Transactions</td>
+              <td>The transactions recorded in this block</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h3>区块头</h3>
+          <br/>
+          <table style="font-size: 22px">
+            <thead>
+            <tr>
+              <th>Size</th>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>4 bytes</td>
+              <td>Version</td>
+              <td>A version number to track software/protocol upgrades</td>
+            </tr>
+            <tr>
+              <td>32 bytes</td>
+              <td>Previous Block Hash</td>
+              <td>A reference to the hash of the previous block in the chain</td>
+            </tr>
+            <tr>
+              <td>32 bytes</td>
+              <td>Merkle Root</td>
+              <td>A hash of the root of the merkle tree of this block’s transactions</td>
+            </tr>
+            <tr>
+              <td>4 bytes</td>
+              <td>Timestamp</td>
+              <td>The approximate creation time of this block</td>
+            </tr>
+            <tr>
+              <td>4 bytes</td>
+              <td>Difficulty</td>
+              <td>The Proof-of-Work algorithm difficulty target for this block</td>
+            </tr>
+            <tr>
+              <td>4 bytes</td>
+              <td>Nonce</td>
+              <td>A counter used for the Proof-of-Work algorithm</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h5>区块的连接</h5>
+          <img src="img/linking_blocks.png">
+        </section>
+        <section>
+          <h3>创世区块</h3>
+          <br/>
+          <p style="text-align: left">
+            区块链中的第一个区块创建于 2009 年，称为创世区块。创世区块中包含了一个彩蛋，在其 Coinbase 交易中包含这样一句话：“首相第二次对处于崩溃边缘的银行进行紧急救助”，这是当天泰晤士报的头版，也是对现有货币制度的嘲讽
+          </p>
+        </section>
+        <section>
+          <h3>Merkle Tree</h3>
+          <img src="img/merkle_tree_1.png">
+        </section>
+        <section>
+          <h3>Merkle Tree</h3>
+          <p>Even number of nodes</p>
+          <img src="img/merkle_tree_2.png">
+        </section>
+        <section>
+          <h3>Merkle Path</h3>
+          <img src="img/merkle_tree_path.png">
+        </section>
+        <section>
+          <h3>Merkle Tree 效率</h3>
+          <br/>
+          <table style="font-size: 30px">
+            <thead>
+            <tr>
+              <th>Number of Txs</th>
+              <th>Approx. size of block</th>
+              <th>Path size (hashes)</th>
+              <th>Path size (bytes)</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>16 txs</td>
+              <td>4 KB</td>
+              <td>4 hashes</td>
+              <td>128 bytes</td>
+            </tr>
+            <tr>
+              <td>512 txs</td>
+              <td>128 KB</td>
+              <td>9 hashes</td>
+              <td>288 bytes</td>
+            </tr>
+            <tr>
+              <td>2048 txs</td>
+              <td>512 KB</td>
+              <td>11 hashes</td>
+              <td>352 bytes</td>
+            </tr>
+            <tr>
+              <td>65535 txs</td>
+              <td>16 MB</td>
+              <td>16 hashes</td>
+              <td>512 bytes</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
           <h2>挖矿与共识</h2>
         </section>
+
+
         <section>
           <h2>比特币安全</h2>
         </section>
