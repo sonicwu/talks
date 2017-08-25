@@ -97,7 +97,6 @@
             <li>一个分布式、去中心化的点对点网络系统</li>
             <li>一种协议、一种网络、一种分布式计算创新的代名词</li>
             <li>一个分布式问题（<a href="https://en.wikipedia.org/wiki/Byzantine_fault_tolerance">拜占庭将军</a>）的解决方案</li>
-            <li>一种通货紧缩货币，在 2140 年到达上限 2100 万</li>
           </ul>
         </section>
         <section>
@@ -145,7 +144,6 @@
           <br/>
           <ul>
             <li>比特币的所有权是通过密钥，地址和签名来确立的</li>
-            <li>在交易中，收款方的地址为其公钥的数字指纹</li>
             <li>一个人可以有多对密钥，钱包是这些密钥的容器</li>
           </ul>
           <img src="img/key_pair_and_addr.png">
@@ -169,26 +167,26 @@
         </section>
         <section>
           <h3>交易记录查询</h3>
-          <p><a href="https://blockchain.info/tx/0627052b6f28912f2703066a912ea577f2ce4da4caa5a5fbd8a57286c345c2f2?show_adv=true">blockchain.info</a></p>
           <img src="img/sample_transaction.png">
+          <p><a href="https://blockchain.info/tx/0627052b6f28912f2703066a912ea577f2ce4da4caa5a5fbd8a57286c345c2f2?show_adv=true">blockchain.info</a></p>
         </section>
         <section>
           <h3>UTXO</h3>
           <br/>
           <ul>
             <li>Unspent Transaction Outputs 未消费交易输出</li>
-            <li>每笔交易的输入是将被消耗的 UTXO (Coinbase 除外)</li>
-            <li>每笔交易的输出是被新创建的 UTXO</li>
-            <li>UTXO 最小单位是 Satoshi (0.00000001 BTC)</li>
+            <li>最小单位是 Satoshi (0.00000001 BTC)</li>
+            <li>交易输入是被消耗的 UTXO，输出是产生的新 UTXO</li>
             <li>比特币世界没有记录用户的余额，只有分散在若干交易中的 UTXO，比特币钱包通过扫描区块链聚合属于用户的所有 UTXO 来计算余额</li>
           </ul>
         </section>
         <section>
           <h3>交易费</h3>
+          <pre><code data-trim contenteditable>
+Fees = Sum(Inputs) – Sum(Outputs)
+          </code></pre>
           <br/>
           <ul>
-            <li>每笔交易总输入和总输出的差额作为交易费</li>
-            <li>作为矿工的奖励</li>
             <li>按照交易尺寸，以千字节计算得来，与交易额无关</li>
             <li>是矿工处理交易的优先级因素之一</li>
             <li>钱包会根据网络中最近交易自动计算恰当的交易费</li>
@@ -196,8 +194,8 @@
         </section>
         <section>
           <h3>交易费估算</h3>
-          <p><a href="https://bitcoinfees.21.co/">https://bitcoinfees.21.co/</a></p>
           <img src="img/fee_estimation_service.png">
+          <p><a href="https://bitcoinfees.21.co/">https://bitcoinfees.21.co/</a></p>
         </section>
         <section>
           <h3>锁定和解锁脚本</h3>
@@ -377,10 +375,166 @@
         <section>
           <h2>挖矿与共识</h2>
         </section>
+        <section>
+          <h3>矿工干什么，收入来自哪里？</h3>
+          <br/>
+          <p style="text-align: left">矿工验证收到的每笔新交易，并将它们构建在区块中。每成功构建一个新区块并添加到区块链中，矿工将获得创建区块的奖励和区块中所有交易的交易费</p>
+        </section>
+        <section>
+          <h3>比特币经济学与货币创造</h3>
+          <br/>
+          <p style="text-align: left">比特币网络约每 10 分钟产生一个新区块，每个新区块的诞生会创造一定额度的新比特币（矿工奖励），这是比特币的唯一的发行方式</p>
+        </section>
+        <section>
+          <h4>比特币发行速度和总量</h4>
+          <p style="text-align: left">每 210,000 个块（约 4 年），发行速率降低 50%，初始每个区块会产生 50 BTC，而现在 (2017) 已降低到 12.5 BTC。到 2140 年左右，比特币总量将达到 2,100 万，之后新区块将不再奖励比特币，货币发行停止，届时矿工收益仅来自交易费</p>
+          <img src="img/bitcoin_money_supply.png">
+        </section>
+        <section>
+          <h3>Coinbase 交易</h3>
+          <br/>
+          <ul>
+            <li>每个区块中的第一笔交易是 Coinbase（创币）交易</li>
+            <li>Coinbase 交易没有输入，而输出是当前区块奖励加所有交易费的总和，支付给构建此区块的矿工自己</li>
+          </ul>
+        </section>
+        <section>
+          <h3>工作量证明</h3>
+          <br/>
+          <p>让我们回忆下区块头中的 Difficulty Target 和 Nonce</p>
+          <table style="font-size: 26px">
+            <thead>
+            <tr>
+              <th>Size</th>
+              <th>Field</th>
+              <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+              <td>4 bytes</td>
+              <td>Difficulty</td>
+              <td>The Proof-of-Work algorithm difficulty target for this block</td>
+            </tr>
+            <tr>
+              <td>4 bytes</td>
+              <td>Nonce</td>
+              <td>A counter used for the Proof-of-Work algorithm</td>
+            </tr>
+            </tbody>
+          </table>
+        </section>
+        <section>
+          <h3>工作量证明</h3>
+          <br/>
+          <pre style="width: 100%"><code data-trim contenteditable>
+# example of proof-of-work algorithm
+max_nonce = 2 ** 32 # 4 billion
 
+def proof_of_work(header, difficulty_bits):
 
+    difficulty_target = 2 ** (256-difficulty_bits)
+
+    for nonce in xrange(max_nonce):
+        block_hash = hashlib.sha256(str(header)+str(nonce)).hexdigest()
+
+        if long(block_hash, 16) < difficulty_target:
+            print "Success with nonce %d" % nonce
+            return (block_hash, nonce)
+          </code></pre>
+          <p style="text-align: left">要成功构建一个区块，矿工必须穷举出一个合适的 Nonce，使区块头的哈希值小余难度目标</p>
+        </section>
+        <section>
+          <h3>难度目标与难度调整</h3>
+          <br/>
+          <ul>
+            <li>每 10 分钟产生一个新区块，这是比特币的发行速率和交易达成速度的保证，需要在长期内保持恒定</li>
+            <li>每个矿工节点将独立完成难度调整，公式如下</li>
+          </ul>
+          <pre><code data-trim contenteditable>
+New Difficulty = Old Difficulty *
+            (Actual Time of Last 2016 Blocks / 20160 minutes)
+          </code></pre>
+        </section>
+        <section>
+          <h4>总哈希算力</h4>
+          <img src="img/hash_rate.png">
+        </section>
+        <section>
+          <h4>难度目标</h4>
+          <img src="img/hash_difficulty.png">
+        </section>
+        <section>
+          <h3>矿工间的竞争</h3>
+          <br/>
+          <p style="text-align: left">当一位矿工成功构建出区块（解出 Nonce），传播给其它节点时，其它矿工会立刻停止计算，转而投入下一个区块构建的竞争中，一轮竞争的结束也代表着下一轮竞争的开始</p>
+        </section>
+        <section>
+          <h3>去中心化共识</h3>
+          <br/>
+          <p style="text-align: left">共识来自独立发生在每个网络节点的 4 种过程相互影响</p>
+          <ul style="font-size: 28px">
+            <li>每个节点依据综合的标准列表对每个交易进行独立验证</li>
+            <li>每个节点独立将交易记录打包进新区块，并通过工作量证明算法进行验算</li>
+            <li>每个节点独立的对新区块进行校验并组装进区块链</li>
+            <li>每个节点对区块链独立选择，在工作量证明机制下选择累计工作量最大的链</li>
+          </ul>
+        </section>
+        <section>
+          <h3>区块链分叉</h3>
+          <p style="text-align: left">由于区块链是去中心化的，每个节点的视角不是总保持一致，两个节点可能同时传播了经过工作量证明的新区块，试图去延长区块链</p>
+          <img src="img/blockchain_with_forks.png">
+          <p style="text-align: left">只要所有节点遵循选择最长累计难度链的原则，整个网络最终会收敛到一致的状态</p>
+        </section>
+        <section>
+          <h3>硬分叉</h3>
+          <br/>
+          <p>协议、方案的升级，守旧派和革新派</p>
+          <ul>
+            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Core">Bitcoin Core</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_XT">Bitcoin XT</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Classic">Bitcoin Classic</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Unlimited">Bitcoin Unlimited</a></li>
+            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Cash">Bitcoin Cash</a></li>
+          </ul>
+        </section>
+        <section>
+          <h3>共识攻击：51% 攻击</h3>
+          <br/>
+          <p>如果拥有了整个网络 51% 的哈希算力，我可以</p>
+          <ul>
+            <li>造成分叉使自己的交易撤销，实现双重支付</li>
+            <li>阻止区块确认部分或全部交易</li>
+            <li>阻止部分或全部矿工构建区块</li>
+          </ul>
+        </section>
+        <section>
+          <h4>说了这么多，现在挖矿还来得及吗？</h4>
+        </section>
+        <section>
+          <h3>GPU Miner</h3>
+          <img src="img/gpu_miner.png">
+          <p>Nvidia GTX1080 GPU = 2.83GH/s for 200w</p>
+        </section>
+        <section>
+          <p>ASIC: Application-Specific Integrated Circuit</p>
+          <img src="img/asic_miner.png">
+          <p>AntMiner S2 ASIC = 1000GH/s for 120w</p>
+        </section>
+        <section>
+          <h3>投资回报率</h3>
+          <br/>
+          <pre style="text-align: center">ROI = Miner costs / (Income per day - Power costs)</pre>
+        </section>
+        <section>
+          <h5>你的对手：<a href="http://www.wenxuecity.com/news/2017/05/25/6265476.html">川西深山里的"淘金客"</a></h5>
+          <img src="img/sichuan_miner.png">
+          <p>在激烈竞争的环境下，个体矿工只能选择加入矿池</p>
+        </section>
         <section>
           <h2>比特币安全</h2>
+          <br/>
+          <blockquote style="text-align: left">“人类使用物理的安全措施已经有数千年之久。相比之下，我们的数字化安全经验还不满 50 年”</blockquote>
         </section>
         <section style="text-align: left">
           <h3>参考</h3>
