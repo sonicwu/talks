@@ -114,7 +114,7 @@
           </ul>
         </section>
         <section>
-          <h3>2013 - 2018</h3>
+          <h3>Bitcoin Price 2013 - 2018</h3>
           <img src="img/bitcoin_price_chart.png">
         </section>
         <section>
@@ -154,10 +154,10 @@
           <h3>UTXO</h3>
           <br/>
           <ul>
-            <li>Unspent Transaction Outputs 未消费交易输出</li>
-            <li>最小单位是 Satoshi (0.00000001 BTC)</li>
-            <li>交易输入是被消耗的 UTXO，输出是产生的新 UTXO</li>
-            <li>比特币世界没有记录用户的余额，只有分散在若干交易中的 UTXO，比特币钱包通过扫描区块链聚合属于用户的所有 UTXO 来计算余额</li>
+            <li>UTXO means "Unspent Transaction Outputs"</li>
+            <li>UTXO can be spent as an Input in a transaction</li>
+            <li>Every transaction represents a change in the UTXO set</li>
+            <li>Bitcoin "balance" is the sum of all UTXO that user’s wallet can spend and which may be scattered among hundreds of transactions and hundreds of blocks</li>
           </ul>
         </section>
         <section>
@@ -167,28 +167,28 @@ Fees = Sum(Inputs) – Sum(Outputs)
           </code></pre>
           <br/>
           <ul>
-            <li>按照交易尺寸，以千字节计算得来，与交易额无关</li>
-            <li>是矿工处理交易的优先级因素之一</li>
-            <li>钱包会根据网络中最近交易自动计算恰当的交易费</li>
+            <li>Calculated based on the size of the transaction in Kbytes, not the value of the transaction in bitcoin</li>
+            <li>Transaction fees affect the processing priority</li>
+            <li>Most wallets calculate and include transaction fees automatically</li>
           </ul>
         </section>
         <section>
-          <h3>交易费估算</h3>
+          <h3>Fee Estimation</h3>
           <img src="img/fee_estimation_service.png">
           <p><a href="https://bitcoinfees.21.co/">https://bitcoinfees.21.co/</a></p>
         </section>
         <section>
-          <h3>锁定和解锁脚本</h3>
+          <h3>Transaction Scripts</h3>
           <br/>
           <ul>
-            <li>比特币客户端使用一种基于堆栈的，非图灵完备的脚本语言来验证交易</li>
-            <li>交易验证依赖于两类脚本: 锁定和解锁脚本</li>
+            <li>Bitcoin’s scripting language is a stack-based, turing completeness, and stateless verification language</li>
+            <li>Bitcoin’s transaction validation relies on two types of scripts: a locking script and an unlocking script</li>
           </ul>
           <img src="img/transcation_script_structure.png">
         </section>
         <section>
-          <h3>一次 P2PKH 交易的脚本验证过程</h3>
-          <h5>比特币网络中的大多数都是 P2PKH (Pay-to-Public-Key-Hash) 交易</h5>
+          <h3>Evaluating a script for a P2PKH transaction</h3>
+          <p>The vast majority of transactions processed on the bitcoin network spend outputs locked with a Pay-to-Public-Key-Hash or "P2PKH" script</p>
         </section>
         <section>
           <img src="img/eval_script_for_p2pkh_1.png">
@@ -203,13 +203,12 @@ Fees = Sum(Inputs) – Sum(Outputs)
           <h3>Block and Blockchain</h3>
           <br/>
           <ul>
-            <li>区块是一种聚合了交易信息的容器数据结构</li>
-            <li>每个区块都会指向一个父区块，形成一个有序链表</li>
-            <li>区块链就是比特币世界中的公共账簿</li>
+            <li>Block is a container data structure that aggregates transactions</li>
+            <li>The blockchain data structure is an ordered, back-linked list of blocks, serves as the public ledger for all transactions</li>
           </ul>
         </section>
         <section>
-          <h3>区块结构</h3>
+          <h3>Structure of a Block</h3>
           <br/>
           <table style="font-size: 26px">
             <thead>
@@ -244,7 +243,7 @@ Fees = Sum(Inputs) – Sum(Outputs)
           </table>
         </section>
         <section>
-          <h3>区块头</h3>
+          <h3>Block Header</h3>
           <br/>
           <table style="font-size: 22px">
             <thead>
@@ -289,15 +288,13 @@ Fees = Sum(Inputs) – Sum(Outputs)
           </table>
         </section>
         <section>
-          <h5>区块的连接</h5>
+          <h5>Linking Blocks</h5>
           <img src="img/linking_blocks.png">
         </section>
         <section>
-          <h3>创世区块</h3>
+          <h3>The Genesis Block</h3>
           <br/>
-          <p style="text-align: left">
-            区块链中的第一个区块创建于 2009 年，称为创世区块。创世区块中包含了一个彩蛋，在其 Coinbase 交易中包含这样一句话：“首相第二次对处于崩溃边缘的银行进行紧急救助”，这是当天泰晤士报的头版，也是对现有货币制度的嘲讽
-          </p>
+          <p style="text-align: left">The first block in the blockchain is called the genesis block and was created in 2009. The genesis block contains a hidden message within it. The coinbase transaction input contains the text "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks," by referencing the headline of the British newspaper The Times.</p>
         </section>
         <section>
           <h3>Merkle Tree</h3>
@@ -313,7 +310,7 @@ Fees = Sum(Inputs) – Sum(Outputs)
           <img src="img/merkle_tree_path.png">
         </section>
         <section>
-          <h3>Merkle Tree 效率</h3>
+          <h3>Merkle Tree Efficiency</h3>
           <br/>
           <table style="font-size: 30px">
             <thead>
@@ -356,32 +353,37 @@ Fees = Sum(Inputs) – Sum(Outputs)
           <h2>Mining and Consensus</h2>
         </section>
         <section>
-          <h3>矿工干什么，收入来自哪里？</h3>
+          <h3>Miner</h3>
           <br/>
-          <p style="text-align: left">矿工验证收到的每笔新交易，并将它们构建在区块中。每成功构建一个新区块并添加到区块链中，矿工将获得创建区块的奖励和区块中所有交易的交易费</p>
+          <ul>
+            <li>Miners validate new transactions and record them on the global ledger</li>
+            <li>Miners receive two types of rewards by mining: new coins created with each new block, and transaction fees from all the transactions included in the block</li>
+          </ul>
         </section>
         <section>
-          <h3>比特币经济学与货币创造</h3>
+          <h3>Bitcoin Economics and Currency Creation</h3>
           <br/>
-          <p style="text-align: left">比特币网络约每 10 分钟产生一个新区块，每个新区块的诞生会创造一定额度的新比特币（矿工奖励），这是比特币的唯一的发行方式</p>
+          <p style="text-align: left">Each block, generated on average every 10 minutes, contains entirely new bitcoin, created from nothing</p>
         </section>
         <section>
-          <h4>比特币发行速度和总量</h4>
-          <p style="text-align: left">每 210,000 个块（约 4 年），发行速率降低 50%，初始每个区块会产生 50 BTC，而现在 (2017) 已降低到 12.5 BTC。到 2140 年左右，比特币总量将达到 2,100 万，之后新区块将不再奖励比特币，货币发行停止，届时矿工收益仅来自交易费</p>
+          <h3>Bitcoin Money Supply</h3>
+          <ul style="font-size: 34px">
+            <li>Every 210,000 blocks, or approximately every 4 years, the currency issuance rate is decreased by 50%</li>
+            <li>Finally, in approximately 2140, almost 21 million bitcoin will be issued. Thereafter, blocks will contain no new bitcoin, and miners will be rewarded solely through the transaction fees</li>
+          </ul>
           <img src="img/bitcoin_money_supply.png">
         </section>
         <section>
-          <h3>Coinbase 交易</h3>
+          <h3>The Coinbase Transaction</h3>
           <br/>
           <ul>
-            <li>每个区块中的第一笔交易是 Coinbase（创币）交易</li>
-            <li>Coinbase 交易没有输入，而输出是当前区块奖励加所有交易费的总和，支付给构建此区块的矿工自己</li>
+            <li>The first transaction in any block is a special transaction, called a coinbase transaction</li>
+            <li>Coinbase transaction does not consume UTXO as inputs. Instead, it has only one input, called the "coinbase", which creates bitcoin from nothing</li>
           </ul>
         </section>
         <section>
           <h3>Proof of Work</h3>
-          <br/>
-          <p>让我们回忆下区块头中的 Difficulty Target 和 Nonce</p>
+          <p>The Difficulty target and Nonce in block header</p>
           <table style="font-size: 26px">
             <thead>
             <tr>
@@ -406,7 +408,7 @@ Fees = Sum(Inputs) – Sum(Outputs)
         </section>
         <section>
           <h3>Proof of Work</h3>
-          <br/>
+          <p style="text-align: left">The Proof-of-Work must produce a hash (Nonce) that is less than the difficulty target</p>
           <pre style="width: 100%"><code data-trim contenteditable>
 # example of proof-of-work algorithm
 max_nonce = 2 ** 32 # 4 billion
@@ -422,14 +424,12 @@ def proof_of_work(header, difficulty_bits):
             print "Success with nonce %d" % nonce
             return (block_hash, nonce)
           </code></pre>
-          <p style="text-align: left">要成功构建一个区块，矿工必须穷举出一个合适的 Nonce，使区块头的哈希值小余难度目标</p>
         </section>
         <section>
-          <h3>难度目标与难度调整</h3>
-          <br/>
+          <h3>Retargeting to Adjust Difficulty</h3>
           <ul>
-            <li>每 10 分钟产生一个新区块，这是比特币的发行速率和交易达成速度的保证，需要在长期内保持恒定</li>
-            <li>每个矿工节点将独立完成难度调整，公式如下</li>
+            <li>Blocks are generated every 10 minutes, on average. This is bitcoin’s heartbeat and underpins the frequency of currency issuance and the speed of transaction settlement</li>
+            <li>Retargeting occurs automatically and on every node independently</li>
           </ul>
           <pre><code data-trim contenteditable>
 New Difficulty = Old Difficulty *
@@ -437,58 +437,49 @@ New Difficulty = Old Difficulty *
           </code></pre>
         </section>
         <section>
-          <h4>总哈希算力</h4>
+          <h3>Miner Competition</h3>
+          <p style="text-align: left">When one miner solves and transmits a block, other miners receive, validate, and then propagate the new block, they abandon their efforts to find a block at the same height and immediately start computing the next block in the chain</p>
+        </section>
+        <section>
+          <h4>Total Hashing Power</h4>
           <img src="img/hash_rate.png">
         </section>
         <section>
-          <h4>难度目标</h4>
+          <h4>Mining Difficulty</h4>
           <img src="img/hash_difficulty.png">
         </section>
         <section>
-          <h3>矿工间的竞争</h3>
-          <br/>
-          <p style="text-align: left">当一位矿工成功构建出区块（解出 Nonce），传播给其它节点时，其它矿工会立刻停止计算，转而投入下一个区块构建的竞争中，一轮竞争的结束也代表着下一轮竞争的开始</p>
-        </section>
-        <section>
-          <h3>去中心化共识</h3>
-          <br/>
-          <p style="text-align: left">共识来自独立发生在每个网络节点的 4 种过程相互影响</p>
-          <ul style="font-size: 28px">
-            <li>每个节点依据综合的标准列表对每个交易进行独立验证</li>
-            <li>每个节点独立将交易记录打包进新区块，并通过工作量证明算法进行验算</li>
-            <li>每个节点独立的对新区块进行校验并组装进区块链</li>
-            <li>每个节点对区块链独立选择，在工作量证明机制下选择累计工作量最大的链</li>
+          <h3>Decentralized Consensus</h3>
+          <p style="text-align: left; font-size: 38px">Bitcoin’s decentralized consensus emerges from the interplay of four processes that occur independently on nodes across the network:</p>
+          <ul style="font-size: 30px">
+            <li>Independent verification of each transaction, by every full node, based on a comprehensive list of criteria</li>
+            <li>Independent aggregation of those transactions into new blocks by mining nodes, coupled with demonstrated computation through a Proof-of-Work algorithm</li>
+            <li>Independent verification of the new blocks by every node and assembly into a chain</li>
+            <li>Independent selection, by every node, of the chain with the most cumulative computation demonstrated through Proof-of-Work</li>
           </ul>
         </section>
         <section>
-          <h3>区块链分叉</h3>
-          <p style="text-align: left">由于区块链是去中心化的，每个节点的视角不是总保持一致，两个节点可能同时传播了经过工作量证明的新区块，试图去延长区块链</p>
+          <h3>Blockchain Forks</h3>
           <img src="img/blockchain_with_forks.png">
-          <p style="text-align: left">只要所有节点遵循选择最长累计难度链的原则，整个网络最终会收敛到一致的状态</p>
+          <ul>
+            <li>Because the blockchain is a decentralized data structure, different copies of it are not always consistent</li>
+            <li>As long as all nodes select the greatest-cumulative-work chain, the global bitcoin network eventually converges to a consistent state</li>
+          </ul>
         </section>
         <section>
           <h3>Hard Fork</h3>
-          <br/>
-          <p>协议、方案的升级，守旧派和革新派</p>
-          <ul>
-            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Core">Bitcoin Core</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_XT">Bitcoin XT</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Classic">Bitcoin Classic</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Unlimited">Bitcoin Unlimited</a></li>
-            <li><a href="https://en.wikipedia.org/wiki/Bitcoin_Cash">Bitcoin Cash</a></li>
-          </ul>
+          <p>A permanent divergence in the blockchain, commonly occurs when non-upgraded nodes can’t validate blocks created by upgraded nodes that follow newer consensus rules</p>
         </section>
         <section>
           <h3>51% Consensus Attacks</h3>
-          <br/>
-          <p>If we controlled a majority (51%) of the total network’s hashing power, we can ...</p>
+          <p>If we controlled a majority (51%) of the total network’s hashing power, we can:</p>
           <ul>
             <li>Cause deliberate "forks" in the blockchain and double-spend transactions</li>
             <li>Execute DoS attacks against specific transactions or addresses</li>
           </ul>
         </section>
         <section>
-          <h4>Is It Too Late to Start Mining?</h4>
+          <h3>Is It Too Late to Start Mining?</h3>
         </section>
         <section>
           <h3>GPU Miner</h3>
@@ -512,7 +503,6 @@ New Difficulty = Old Difficulty *
         </section>
         <section>
           <h2>User Security Best Practices</h2>
-          <br/>
           <ul>
             <li>Physical Bitcoin Storage</li>
             <li>Hardware Wallets</li>
@@ -520,6 +510,16 @@ New Difficulty = Old Difficulty *
             <li>Diversifying Risk</li>
             <li>Multisig and Governance</li>
             <li>Survivability</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Blockchain Applications</h2>
+          <ul>
+            <li>Digital Identity</li>
+            <li>Proof-of-Existence (Digital Notary)</li>
+            <li>Kickstarter</li>
+            <li>Smart Contracts</li>
+            <li>Distributed Cloud Storage</li>
           </ul>
         </section>
         <section style="text-align: left">
