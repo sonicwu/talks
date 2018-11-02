@@ -37,7 +37,7 @@
     </section>
     <section>
       <h3>传统分布式 RPC 架构</h3>
-      <img src="img/traditional_rpc.png">
+      <img src="img/traditional-rpc.png">
       <ul>
         <li>使⽤ F5、HAProxy 等软硬件进⾏负载均衡，且需要冗余</li>
         <li>服务变多时，应⽤间的依赖关系难以理清</li>
@@ -46,7 +46,7 @@
     </section>
     <section>
       <h3>Dubbo 架构</h3>
-      <img src="img/dubbo_rpc.png">
+      <img src="img/dubbo-rpc.png">
       <ol>
         <li>服务提供者启动，向注册中心注册自己提供的服务</li>
         <li>消费者启动，向注册中心订阅自己需要的服务</li>
@@ -56,14 +56,14 @@
     </section>
     <section>
       <h3>Dubbo 架构</h3>
-      <img src="img/dubbo_rpc_monitor.png">
+      <img src="img/dubbo-rpc-monitor.png">
       <ul>
         <li>服务提供者和消费者会在内存中累计请求次数和耗时，每分钟将数据异步发送给监控中心</li>
       </ul>
     </section>
     <section>
       <h3>Dubbo 架构的优势</h3>
-      <img src="img/dubbo_architecture.jpg">
+      <img src="img/dubbo-architecture.jpg">
       <ul>
         <li>消费者获取服务提供者列表，自行实现软负载和容错，消除了负载均衡器的依赖，同时降低了成本</li>
         <li>通过服务注册和订阅，Dubbo 可以提供所有节点间完整的依赖关系</li>
@@ -141,14 +141,14 @@
     </section>
     <section>
       <h3>Dubbo 监控中心</h3>
-      <img src="img/dubbo_monitor.png">
+      <img src="img/dubbo-monitor.png">
       <ul>
         <li>目前 Dubbo 提供的 "Simple" 监控中心，是没有集群支持的单点，但故障后不影响 RPC 服务</li>
       </ul>
     </section>
     <section>
       <h3>Dubbo 服务治理中心</h3>
-      <img src="img/dubbo_admin.png">
+      <img src="img/dubbo-admin.png">
       <ul>
         <li>提供服务降级、容错，以及动态配置、负载均衡、权重、路由规则的调整</li>
       </ul>
@@ -185,7 +185,7 @@
     </section>
     <section>
       <h3>ZooKeeper 简介</h3>
-      <img src="img/zookeeper_namespace.jpg">
+      <img src="img/zookeeper-namespace.jpg">
       <ul>
         <li>它的数据结构就像一个标准文件系统，每个节点叫做 znode，可以存储数据，并且数据有版本</li>
         <li>znode 可以是临时的，当创建它的 session 失效，znode 同时会被删除</li>
@@ -194,11 +194,11 @@
     </section>
     <section>
       <h3>ZK 作为 Dubbo 注册中心</h3>
-      <img src="img/zookeeper_as_dubbo_register.jpg">
+      <img src="img/zookeeper-as-dubbo-register.jpg">
     </section>
     <section>
       <h3>ZooKeeper 集群</h3>
-      <img src="img/zookeeper_cluster.jpg">
+      <img src="img/zookeeper-cluster.jpg">
       <ul>
         <li>Zk 集群在启动时选举出一台作为 Leader，其他节点为 Follower</li>
         <li>客户端无需知晓 Leader 节点，可以选择集群中的任意节点连接，发往 Follower 节点的写请求会被 foward 到 Leader</li>
@@ -207,7 +207,7 @@
     </section>
     <section>
       <h3>Dubbo 远景</h3>
-      <img src="img/dubbo_architecture_roadmap.jpg">
+      <img src="img/dubbo-architecture-roadmap.jpg">
       <p style="text-align: left;">分布式服务架构 <span style="color: lightskyblue;">(Dubbo 所处的阶段)</span></p>
       <ul>
         <li>当垂直应用越来越多，应用之间交互不可避免，将核心业务抽取出来，作为独立的服务，逐渐形成稳定的服务中心，使前端应用能更快速的响应多变的市场需求</li>
@@ -216,7 +216,7 @@
     </section>
     <section>
       <h3>Dubbo 远景</h3>
-      <img src="img/dubbo_architecture_roadmap.jpg">
+      <img src="img/dubbo-architecture-roadmap.jpg">
       <p style="text-align: left;">流动计算架构</p>
       <ul>
         <li>当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率</li>
@@ -225,7 +225,7 @@
     </section>
     <section>
       <h3>Dubbo 远景</h3>
-      <img src="img/dubbo_architecture_future.jpg">
+      <img src="img/dubbo-architecture-future.jpg">
       <ul>
         <li>到下一阶段（流动计算）还缺少的部分</li>
       </ul>

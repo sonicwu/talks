@@ -96,10 +96,10 @@
       </section>
       <section>
         <h3>令牌桶</h3>
-        <img src="img/token_bucket.png" width="702">
+        <img src="img/token-bucket.png" width="702">
       </section>
       <section>
-        <img src="img/token_bucket_code.png" />
+        <img src="img/token-bucket-code.png" />
       </section>
       <section>
         <h3>哈希函数</h3>
@@ -108,7 +108,7 @@
           <li>从任何一种数据中创建小的数字“指纹”（特征码）的方法</li>
           <li>如果得到的“指纹”不同，那么认为输入是不同的两个东西</li>
         </ul>
-        <img src="img/hash_function.svg" style="background-color: #ffffff" />
+        <img src="img/hash-function.svg" style="background-color: #ffffff" />
       </section>
       <section>
         <h3>哈希函数的应用</h3>
@@ -140,7 +140,7 @@
           <li>每提交一个新数据，会将其哈希后对应的位置设为 1</li>
           <li>如果新数据哈希后对应的位置均已为 1，则认为已存在</li>
         </ul>
-        <img src="img/bloom_filter.svg" style="background-color: #ffffff" />
+        <img src="img/bloom-filter.svg" style="background-color: #ffffff" />
       </section>
       <section>
         <h3>布隆过滤器的优点</h3>
@@ -149,7 +149,7 @@
           <li>时间: 查询速度快 (常数时间)</li>
           <li>空间: 占用空间极小</li>
         </ul>
-        <img src="img/bloom_filter.svg" style="background-color: #ffffff" />
+        <img src="img/bloom-filter.svg" style="background-color: #ffffff" />
       </section>
       <section>
         <h3>布隆过滤器的缺点</h3>
@@ -158,7 +158,7 @@
           <li>存在误判率</li>
           <li>无法删除元素 (会影响其他元素)</li>
         </ul>
-        <img src="img/bloom_filter.svg" style="background-color: #ffffff" />
+        <img src="img/bloom-filter.svg" style="background-color: #ffffff" />
       </section>
       <section>
         <h3>假设有 N 台缓存设备，哈希算法是</h3>
@@ -181,7 +181,7 @@ function getCacheNode(key) {
           <li>想象一个 2^32 个点组成的圆，从顶点 0 开始顺时针直到 2^32-1</li>
           <li>一致性哈希将 key 映射到圆环的一个点</li>
         </ul>
-        <img src="img/consistent_hashing_0.jpg" width="300" />
+        <img src="img/consistent-hashing-0.jpg" width="300" />
       </section>
       <section>
         <h3>一致性哈希</h3>
@@ -189,7 +189,7 @@ function getCacheNode(key) {
         <ul>
           <li>将缓存设备也映射到圆上，每个 key 沿着圆环边顺时针进行查找，直到发现缓存后即保存在此设备</li>
         </ul>
-        <img src="img/consistent_hashing_1.jpg" width="400" />
+        <img src="img/consistent-hashing-1.jpg" width="400" />
       </section>
       <section>
         <h3>一致性哈希</h3>
@@ -197,7 +197,7 @@ function getCacheNode(key) {
         <ul>
           <li>当设备 Cache B 挂掉，key4 的请求将前往 Cache C，这里只导致了 key4 失效</li>
         </ul>
-        <img src="img/consistent_hashing_2.jpg" width="400" />
+        <img src="img/consistent-hashing-2.jpg" width="400" />
       </section>
       <section>
         <h3>一致性哈希</h3>
@@ -205,7 +205,7 @@ function getCacheNode(key) {
         <ul>
           <li>当新增一台 Cache D，key2 的请求将前往 Cache D，这里只导致了 key2 失效</li>
         </ul>
-        <img src="img/consistent_hashing_3.jpg" width="400" />
+        <img src="img/consistent-hashing-3.jpg" width="400" />
       </section>
       <section>
         <h3>一致性哈希</h3>
@@ -213,7 +213,7 @@ function getCacheNode(key) {
         <ul>
           <li>虚拟节点：可以让一台缓存设备，在圆上建立多个映射</li>
         </ul>
-        <img src="img/consistent_hashing_4.jpg" width="400" />
+        <img src="img/consistent-hashing-4.jpg" width="400" />
       </section>
       <section>
         <h3>一致性哈希的应用</h3>
@@ -334,23 +334,23 @@ function getCacheNode(key) {
         <div class="fragment">
           <p style="text-align: left">Paxos 是一个希腊岛屿，岛民采取民主制决定律法，但不要求每次大会所有人都出席</p>
           <span>
-            <img src="img/paxos_map.jpg">
-            <img src="img/paxos_beach.jpg">
+            <img src="img/paxos-map.jpg">
+            <img src="img/paxos-beach.jpg">
           </span>
         </div>
       </section>
       <section>
         <h4>正常情况下的 Paxos 就像 2PC</h4>
-        <img src="img/paxos_normal.png">
+        <img src="img/paxos-normal.png">
       </section>
       <section>
         <h4>网络分区情况下的 Paxos</h4>
-        <img src="img/paxos_quorum.png">
+        <img src="img/paxos-quorum.png">
         <p>此时张三将决定哪一边形成“法定人数” (Quorum)</p>
       </section>
       <section>
         <h4>打工归来的赵六</h4>
-        <img src="img/paxos_old_proposal.png">
+        <img src="img/paxos-old-proposal.png">
         <ul>
           <li>赵六离开家时，门票还是￥10，见过大世面的他觉得应该涨到￥50</li>
           <li>岛民们告诉赵六现在已经涨到￥20了，你回去想想再说</li>
@@ -358,7 +358,7 @@ function getCacheNode(key) {
       </section>
       <section>
         <h4>总结</h4>
-        <img src="img/transactions_across_datacenters_googleio_2009.jpg">
+        <img src="img/transactions-across-datacenters-googleio-2009.jpg">
         <p>Google I/O 2009 <a href="http://snarfed.org/transactions_across_datacenters_io.html">《Transaction Across DataCenter》</a></p>
         <p>by Ryan Barrett</p>
       </section>
