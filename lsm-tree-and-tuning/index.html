@@ -11,16 +11,10 @@
 
   <link rel="stylesheet" href="../assets/css/reveal.css">
   <link rel="stylesheet" href="../assets/css/theme/league.css">
+  <link rel="stylesheet" href="../assets/css/common.css">
 
   <!-- Theme used for syntax highlighting of code -->
   <link rel="stylesheet" href="../assets/lib/css/zenburn.css">
-
-  <style>
-    u {
-      color: #FA5858;
-      text-decoration: none;
-    }
-  </style>
 
   <!-- Printing and PDF exports -->
   <script>
@@ -181,7 +175,7 @@
         </section>
         <section>
           <p style="text-align: left"><u>Fluid LSM-tree</u> and its three parameters</p>
-          <ul style="float: left">
+          <ul class="left">
             <li>T = size ratio</li>
             <li>K = runs at smaller levels</li>
             <li>Z = runs at largest level</li>
@@ -189,7 +183,7 @@
         </section>
         <section>
           <p style="text-align: left">If we set ...</p>
-          <ul style="float: left">
+          <ul class="left">
             <li>Z=1, K=1, it will be <u>Leveling</u></li>
             <li>Z=1, K=T-1, it will be <u>Lazy Leveling</u></li>
             <li>Z=T-1, K=T-1, it will be <u>Tiering</u></li>
@@ -200,7 +194,7 @@
             <h3>References</h3>
             <ul>
                 <li><a href="https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/">Designing Data-Intensive Applications</a>, O'Reilly Book 2017</li>
-                <li><a href="http://www.benstopford.com/2015/02/14/log-structured-merge-trees/">Log Structured Merge Trees</a>, ben stopford Blog</li>
+                <li><a href="http://www.benstopford.com/2015/02/14/log-structured-merge-trees/">Log Structured Merge Trees</a>, Ben Stopford Blog</li>
                 <li><a href="https://www.infoq.com/presentations/lsm-append-data-structures">Power of the Log</a>: LSM & Append Only Data Structures, QCon 2017</li>
                 <li><a href="http://daslab.seas.harvard.edu/monkey/">Monkey</a>: Optimal Navigable Key-Value Store, ACM SIGMOD 2O17</li>
                 <li><a href="https://stratos.seas.harvard.edu/publications/dostoevsky-better-space-time-trade-offs-lsm-tree-based-key-value-stores">Dostoevsky</a>: Better Space-Time Trade-Offs for LSM-Tree Based Key-Value Stores via Adaptive Removal of Superfluous Merging, ACM SIGMOD 2018</li>

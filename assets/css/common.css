@@ -1,0 +1,20 @@
+u {
+    color: #FA5858;
+    text-decoration: none;
+}
+.flex-box {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+}
+.vertical-center {
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+}
+.left {
+    float: left;
+}
+.right {
+    float: right;
+}
