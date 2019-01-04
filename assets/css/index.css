@@ -1,0 +1,28 @@
+body {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    color: #5F5C52;
+}
+a {
+    color: #3AB8E6;
+    font-weight: bold;
+}
+a:hover {
+    color: #2A7692;
+}
+h1 {
+    font-size: 44px;
+    margin-top: 28px;
+    margin-bottom: 28px;
+}
+h3 {
+    font-size: 22px;
+    margin-top:48px;
+    margin-bottom:28px;
+}
+.container {
+    margin: 6% 8%;
+}
+.footer {
+    margin: 44px 0;
+}
